@@ -8,8 +8,16 @@ import java.util.Map;
 
 public class ViewByDeadline implements ShowService{
 
+    private final Map<String, List<Task>> tasks;
+    private final PrintWriter out;
+
+    public ViewByDeadline(Map<String, List<Task>> tasks, PrintWriter out) {
+        this.tasks = tasks;
+        this.out = out;
+    }
+
     @Override
-    public void show(Map<String, List<Task>> tasks, PrintWriter out) {
+    public void show() {
         Comparator<Task> dateComparator = Comparator.comparing(Task::getDeadline);
         for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
             out.println(project.getKey());

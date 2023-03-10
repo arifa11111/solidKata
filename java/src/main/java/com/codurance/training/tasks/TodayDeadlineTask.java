@@ -6,9 +6,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class Today implements ShowService {
+public class TodayDeadlineTask implements ShowService {
+
+    private final  Map<String, List<Task>> tasks;
+    private final PrintWriter out;
+
+    public TodayDeadlineTask(Map<String, List<Task>> tasks, PrintWriter out) {
+        this.tasks = tasks;
+        this.out = out;
+    }
     @Override
-    public void show(Map<String, List<Task>> tasks, PrintWriter out) {
+    public void show() {
         for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
             out.println(project.getKey());
             for (Task task : project.getValue()) {

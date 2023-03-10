@@ -4,43 +4,70 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
-public class Execute {
-    public void execute(String commandLine, PrintWriter out, Map<String, List<Task>> tasks) {
+public class Execute implements TaskService {
+
+    private final Map<String, List<Task>> tasks;
+    private final PrintWriter out;
+
+    Show show;
+    Add add;
+    Check check ;
+    Uncheck uncheck ;
+    Help help ;
+    Delete delete ;
+    TodayDeadlineTask todayDeadlineTask ;
+    ViewByDeadline viewByDeadline ;
+    ErrorHandler errorHandler;
+
+    public Execute(Map<String, List<Task>> tasks, PrintWriter out) {
+        this.tasks = tasks;
+        this.out = out;
+        show = new Show(tasks,out);
+        add  = new Add(tasks,out);
+        check = new Check(tasks);
+        uncheck= new Uncheck(tasks);
+        help= new Help();
+        delete= new Delete(tasks,out);
+        todayDeadlineTask= new TodayDeadlineTask(tasks,out);
+        viewByDeadline= new ViewByDeadline(tasks,out);
+        errorHandler = new ErrorHandler();
+    }
+
+
+    public void task(String commandLine) {
         String[] commandRest = commandLine.split(" ", 2);
         String command = commandRest[0];
         switch (command) {
             case "show":
             case "view-by-project":
-                new Show().show(tasks,out);
+              show.show();
                 break;
             case "add":
-                new Add().add(commandRest[1],tasks,out);
+                add.task(commandRest[1]);
                 break;
             case "check":
-                new Check().check(tasks,commandRest[1],out);
+                check.updateTask(commandRest[1],true);
                 break;
             case "uncheck":
-                new Uncheck().unCheck(tasks,commandRest[1],out);
+                uncheck.updateTask(commandRest[1],false);
                 break;
             case "help":
-                new Help().help(out);
+               help.help();
                 break;
             case "delete":
-                new AddDelete().delete(tasks,commandRest[1],out);
-                break;
-            case "deadline":
-                new AddDeadline().addDeadLine(tasks,commandRest[1],out);
+                delete.task(commandRest[1]);
                 break;
             case "today":
-                new Today().show(tasks,out);
+                todayDeadlineTask.show();
                 break;
             case "view-by-deadline":
             case "view-by-date":
-                new ViewByDeadline().show(tasks,out);
+                viewByDeadline.show();
                 break;
             default:
-                new ErrorHandler().error(command,out);
+                errorHandler.error(command,out);
                 break;
         }
     }
+
 }

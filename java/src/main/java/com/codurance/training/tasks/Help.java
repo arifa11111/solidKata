@@ -1,9 +1,10 @@
 package com.codurance.training.tasks;
 
-import java.io.PrintWriter;
+import static java.lang.System.out;
 
-public class Help {
-    public void help(PrintWriter out) {
+public class Help implements HelpService {
+
+    public void help() {
         out.println("Commands:");
         out.println("  show");
         out.println("  add project <project name>");

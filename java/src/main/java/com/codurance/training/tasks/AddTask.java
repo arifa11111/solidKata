@@ -1,13 +1,25 @@
 package com.codurance.training.tasks;
 
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 import static java.lang.System.out;
 
-public class AddTask {
-    public void addTask(String project, String description, Map<String, List<Task>> tasks) {
+public class AddTask implements AddTaskService{
+    private final Map<String, List<Task>> tasks;
+    private final PrintWriter out;
+
+    public AddTask(Map<String, List<Task>> tasks, PrintWriter out) {
+        this.tasks = tasks;
+        this.out = out;
+    }
+
+    @Override
+    public void addTask(String project, String description) {
         String[] subcommand = description.split(" ");
         List<Task> projectTasks = tasks.get(project);
 

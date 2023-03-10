@@ -6,8 +6,16 @@ import java.util.List;
 import java.util.Map;
 
 
-public class AddDeadline {
-    public void addDeadLine(Map<String, List<Task>> tasks, String commandLine, PrintWriter out) {
+public class AddDeadline implements TaskService {
+    private final Map<String, List<Task>> tasks;
+    private final PrintWriter out;
+
+    public AddDeadline(Map<String, List<Task>> tasks, PrintWriter out) {
+        this.tasks = tasks;
+        this.out = out;
+    }
+    @Override
+    public void task(String commandLine) {
         String[] subcommandRest = commandLine.split(" ", 2);
 
         for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {

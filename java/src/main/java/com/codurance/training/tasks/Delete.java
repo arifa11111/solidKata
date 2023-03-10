@@ -5,9 +5,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class AddDelete  implements DeleteInterface{
+public class Delete  implements TaskService{
+
+    private final Map<String, List<Task>> tasks;
+    private final PrintWriter out;
+
+    public Delete(Map<String, List<Task>> tasks, PrintWriter out) {
+        this.tasks = tasks;
+        this.out = out;
+    }
     @Override
-    public void delete(Map<String, List<Task>> tasks, String idString, PrintWriter out) {
+    public void task(String idString) {
         for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
             for (Task task : project.getValue()) {
                 if (task.getId()==Long.parseLong(idString)) {

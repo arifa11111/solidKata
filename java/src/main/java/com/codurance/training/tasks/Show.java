@@ -6,8 +6,16 @@ import java.util.Map;
 
 public class Show implements ShowService {
 
+    private final  Map<String, List<Task>> tasks;
+    private final PrintWriter out;
+
+    public Show(Map<String, List<Task>> tasks, PrintWriter out) {
+        this.tasks = tasks;
+        this.out = out;
+    }
+
     @Override
-    public void show(Map<String, List<Task>> tasks, PrintWriter out) {
+    public void show() {
         for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
             out.println(project.getKey());
             for (Task task : project.getValue()) {

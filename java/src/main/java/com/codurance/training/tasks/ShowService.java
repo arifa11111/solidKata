@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface ShowService {
 
-    void show(Map<String, List<Task>> tasks, PrintWriter out);
+    void show();
 
 
 
