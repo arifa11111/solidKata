@@ -9,14 +9,14 @@ public class Execute implements TaskService {
     private final Map<String, List<Task>> tasks;
     private final PrintWriter out;
 
-    Show show;
-    Add add;
-    Check check ;
-    Uncheck uncheck ;
-    Help help ;
-    Delete delete ;
-    TodayDeadlineTask todayDeadlineTask ;
-    ViewByDeadline viewByDeadline ;
+    ShowService show;
+    TaskService add;
+    UpdateTaskService check ;
+    UpdateTaskService uncheck ;
+    HelpService help ;
+    TaskService delete ;
+    ShowService todayDeadlineTask ;
+    ShowService viewByDeadline ;
     ErrorHandler errorHandler;
 
     public Execute(Map<String, List<Task>> tasks, PrintWriter out) {
